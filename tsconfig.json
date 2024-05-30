@@ -1,13 +1,19 @@
 {
    "compilerOptions": {
       "module": "commonjs",
-      "target": "es6",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
       "esModuleInterop": true,
-      "skipLibCheck": true
+      "target": "es6",
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "outDir": "dist",
+      "baseUrl": ".",
+      "paths": {
+         "*": ["node_modules/*"],
+         "src/*": ["src/*"]
+      },
+      "declaration": true, // Add this line
+      "declarationMap": true // Optionally generate source maps for declarations
    },
-   "include": ["src/**/*"],
-   "exclude": ["node_modules"]
+   "include": ["*.ts", "*.js", "src/**/*.ts"]
 }

@@ -1,21 +1,21 @@
-# GDrive Node Service Uploader
+# 🚀 GDrive Node Service Uploader
 
 Programmatically upload, download, and manage files on Google Drive using Node.js.
 
-## Features
+## ✨ Features
 
-- **Upload Files**: Seamlessly upload files to Google Drive.
-- **Download Files**: Download files from Google Drive to your local system.
-- **Delete Files**: Remove files from Google Drive.
-- **Progress Tracking**: Track the progress of upload and download operations.
+- **⬆️ Upload Files**: Seamlessly upload files to Google Drive.
+- **⬇️ Download Files**: Download files from Google Drive to your local system.
+- **🗑️ Delete Files**: Remove files from Google Drive.
+- **📊 Progress Tracking**: Track the progress of upload and download operations.
 
-## Installation
+## 📦 Installation
 
 ```bash
 npm install gdrive-node-service-uploader
 ```
 
-## Usgit 
+## 🚀 Usage
 
 ### Prerequisites
 
@@ -23,7 +23,7 @@ Ensure you have a Google Service Account and the credentials JSON file. Set the 
 
 ### Setup
 
-1. **Upload a File**
+1. **⬆️ Upload a File**
 
 ```typescript
 import { uploadFileToGoogleDrive } from 'gdrive-node-service-uploader';
@@ -40,7 +40,7 @@ uploadFileToGoogleDrive({
 });
 ```
 
-2. **Download a File**
+2. **⬇️ Download a File**
 
 ```typescript
 import { downloadFileFromGoogleDrive } from 'gdrive-node-service-uploader';
@@ -59,7 +59,7 @@ downloadFileFromGoogleDrive({
 });
 ```
 
-3. **Delete a File**
+3. **🗑️ Delete a File**
 
 ```typescript
 import { deleteFileFromGoogleDrive } from 'gdrive-node-service-uploader';
@@ -71,7 +71,7 @@ deleteFileFromGoogleDrive({ fileId }).then((result) => {
 });
 ```
 
-### Example
+### 🌟 Example
 
 An example script to upload, download, and delete a file:
 
@@ -86,7 +86,7 @@ const uploadAndDownloadExample = async () => {
   const downloadPath = path.join(baseDir, 'example_archive_downloaded.zip');
 
   try {
-    const uploadProgressBar = new ProgressBar('Uploading [:bar] :percent :etas', {
+    const uploadProgressBar = new ProgressBar('⬆️ Uploading [:bar] :percent :etas', {
       total: 100,
       width: 40,
       complete: '=',
@@ -99,12 +99,13 @@ const uploadAndDownloadExample = async () => {
         uploadProgressBar.update(progress / 100);
       },
     });
+
     console.log('\nUpload result:', uploadResult);
 
     if (uploadResult.status) {
       console.log('File uploaded successfully. Initiating download...');
 
-      const downloadProgressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
+      const downloadProgressBar = new ProgressBar('⬇️ Downloading [:bar] :percent :etas', {
         total: 100,
         width: 40,
         complete: '=',
@@ -143,11 +144,11 @@ const uploadAndDownloadExample = async () => {
 uploadAndDownloadExample();
 ```
 
-## Environment Variables
+## 🌍 Environment Variables
 
 - `SERVICE_ACCOUNT_KEY_FILE`: Path to the Google Service Account credentials JSON file.
 - `DEFAULT_DOWNLOAD_PATH`: Default path for downloaded files.
 
-## License
+## 📜 License
 
 MIT

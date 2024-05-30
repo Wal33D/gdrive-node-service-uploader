@@ -1,6 +1,6 @@
 # 🚀 GDrive Node Service Uploader
 
-Programmatically upload, download, and manage files on Google Drive using Node.js.
+Programmatically upload, download, and manage files on Google Drive using a Service Account and Node.js.
 
 ## ✨ Features
 

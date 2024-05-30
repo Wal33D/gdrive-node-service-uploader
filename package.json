@@ -1,7 +1,7 @@
 {
    "name": "gdrive-node-uploader",
    "version": "0.8.0",
-   "description": "A Node.js library to upload, download, and manage files on Google Drive.",
+   "description": "A Node.js library to upload, download, and manage files on Google Drive using a service account.",
    "main": "./dist/index.js",
    "scripts": {
       "clean": "rimraf ./dist/",

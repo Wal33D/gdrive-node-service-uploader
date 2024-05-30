@@ -39,6 +39,14 @@ export const downloadFileFromGoogleDrive = async ({ fileId, fileUrl, fileName, d
    let message = '';
 
    try {
+      // Check if the file already exists and delete it
+      try {
+         await fs.access(downloadPath);
+         await fs.unlink(downloadPath);
+      } catch (error) {
+         // File does not exist, no action needed
+      }
+
       const dest = await fs.open(downloadPath, 'w');
       const res = await drive.files.get({ fileId: validatedFileId, alt: 'media' }, { responseType: 'stream' });
 

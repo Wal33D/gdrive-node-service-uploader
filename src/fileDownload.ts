@@ -3,16 +3,37 @@ import { promises as fs } from 'fs';
 import { DownloadFileParams } from './types';
 import { validateFileIdOrUrl, getAuthClient } from './utils';
 
-export const downloadFileFromGoogleDrive = async ({ fileId, downloadPath, url, onProgress }: DownloadFileParams) => {
-   const validatedFileId = validateFileIdOrUrl({ fileId, url });
+export const downloadFileFromGoogleDrive = async ({ fileId, fileUrl, fileName, downloadPath, onProgress }: DownloadFileParams) => {
+   const auth = await getAuthClient();
+   const drive = google.drive({ version: 'v3', auth });
+
+   let validatedFileId: string | undefined;
+
+   if (fileId) {
+      validatedFileId = fileId;
+   } else if (fileUrl) {
+      validatedFileId = validateFileIdOrUrl({ fileUrl });
+   } else if (fileName) {
+      const res = await drive.files.list({
+         q: `name='${fileName}' and trashed=false`,
+         fields: 'files(id)'
+      });
+
+      if (res.data.files && res.data.files.length > 0) {
+         validatedFileId = res.data.files[0].id;
+      } else {
+         throw new Error('File not found on Google Drive.');
+      }
+   }
+
+   if (!validatedFileId) {
+      throw new Error('Valid file ID could not be determined.');
+   }
 
    downloadPath = downloadPath || process.env.DEFAULT_DOWNLOAD_PATH;
    if (!downloadPath) {
       throw new Error('Download path must be provided or set in DEFAULT_DOWNLOAD_PATH environment variable');
    }
-
-   const auth = await getAuthClient();
-   const drive = google.drive({ version: 'v3', auth });
 
    let status = false;
    let message = '';

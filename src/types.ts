@@ -5,12 +5,33 @@ export interface UploadFileParams {
 
 export interface DownloadFileParams {
    fileId?: string;
+   fileName?: string;
+   fileUrl?: string;
    downloadPath?: string;
-   url?: string;
    onProgress?: (progress: number) => void;
 }
 
-export interface DeleteFileParams {
+export interface FileParams {
    fileId?: string;
-   url?: string;
+   fileUrl?: string;
+   fileName?: string;
+   newName?: string;
+}
+
+export interface FileExistsResult {
+   exists: boolean;
+   fileId?: string;
+   fileName?: string;
+   modifiedTime?: string;
+   fileUrl?: string;
+   message: string;
+}
+
+export interface RenameFileResult {
+   status: boolean;
+   message: string;
+   id?: string;
+   name?: string;
+   modifiedTime?: string;
+   downloadUrl?: string;
 }

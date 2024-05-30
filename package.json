@@ -1,13 +1,17 @@
 {
    "name": "gdrive-node-uploader",
-   "version": "0.8.8",
+   "version": "0.8.9",
    "description": "A Node.js library to upload, download, and manage files on Google Drive using a service account.",
    "main": "dist/index.js",
    "types": "dist/index.d.ts",
    "scripts": {
       "build": "tsc",
       "start": "tsc && ts-node dist/index.js",
-      "example": "tsc && ts-node dist/uploadAndDownloadExample.js"
+      "exampleUpload": "tsc && ts-node dist/examples/uploadExample.js",
+      "exampleFind": "tsc && ts-node dist/examples/checkFileExistsExample.js",
+      "exampleDelete": "tsc && ts-node dist/examples/deleteFileExample.js",
+      "exampleDownload": "tsc && ts-node dist/examples/downloadFileExample.js",
+      "exampleRename": "tsc && ts-node dist/examples/renameFileExample.js"
    },
    "author": "Wal33D",
    "license": "ISC",

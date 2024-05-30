@@ -15,5 +15,12 @@
       "declaration": true, // Add this line
       "declarationMap": true // Optionally generate source maps for declarations
    },
-   "include": ["*.ts", "*.js", "src/**/*.ts"]
+   "include": [
+      "*.ts",
+      "*.js",
+      "src/**/*.ts",
+      "src/examples/checkFileExistsExample.ts",
+      "src/examples/deleteFileExample.ts",
+      "src/examples/uploadAndDownloadExample.ts"
+   ]
 }

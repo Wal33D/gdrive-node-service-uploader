@@ -46,20 +46,20 @@ export const makeFilePublic = async ({ drive, fileId }: { drive: any; fileId: st
    console.log(`File with ID: ${fileId} is now public.`);
 };
 
-export const extractFileIdFromUrl = ({ url }: { url: string }): string => {
-   const match = url.match(/\/d\/(.*?)\/|id=(.*?)(&|$)/);
+export const extractFileIdFromUrl = ({ fileUrl }: { fileUrl: string }): string => {
+   const match = fileUrl.match(/\/d\/(.*?)\/|id=(.*?)(&|$)/);
    if (match) {
       return match[1] || match[2];
    }
    throw new Error('Invalid Google Drive URL');
 };
 
-export const validateFileIdOrUrl = ({ fileId, url }: { fileId?: string; url?: string }): string => {
-   if (!fileId && !url) {
+export const validateFileIdOrUrl = ({ fileId, fileUrl }: { fileId?: string; fileUrl?: string }): string => {
+   if (!fileId && !fileUrl) {
       throw new Error('File ID or URL must be provided.');
    }
-   if (url) {
-      return extractFileIdFromUrl({ url });
+   if (fileUrl) {
+      return extractFileIdFromUrl({ fileUrl });
    }
    return fileId!;
 };

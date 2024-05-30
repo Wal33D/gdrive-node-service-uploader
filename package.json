@@ -18,5 +18,24 @@
    },
    "devDependencies": {
       "@types/progress": "^2.0.7"
+   },
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/Wal33D/gdrive-node-service-uploader"
+   },
+   "bugs": {
+      "url": "https://github.com/Wal33D/gdrive-node-service-uploader/issues"
+   },
+   "homepage": "https://github.com/Wal33D/gdrive-node-service-uploader#readme",
+   "keywords": [
+      "google-drive",
+      "service-account",
+      "nodejs",
+      "upload",
+      "download",
+      "file-management"
+   ],
+   "publishConfig": {
+      "registry": "https://registry.npmjs.org/"
    }
 }

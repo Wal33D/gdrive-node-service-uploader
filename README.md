@@ -21,6 +21,44 @@ npm install gdrive-node-service-uploader
 
 Ensure you have a Google Service Account and the credentials JSON file. Set the path to your credentials file in the environment variable `SERVICE_ACCOUNT_KEY_FILE`.
 
+
+1. **Create a Project on Google Cloud Platform:**
+
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/).
+   - Click on the project dropdown and select **New Project**.
+   - Enter the project name and click **Create**.
+
+2. **Enable the Google Drive API:**
+
+   - In the [API Library](https://console.cloud.google.com/apis/library), search for "Google Drive API".
+   - Click on **Google Drive API** and then click **Enable**.
+
+3. **Create a Service Account:**
+
+   - Navigate to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) page.
+   - Click **Create Service Account**.
+   - Enter the service account name and description, then click **Create**.
+   - In the next step, assign the role **Project > Editor** and click **Continue**.
+   - Skip granting additional users access and click **Done**.
+
+4. **Create a Service Account Key:**
+
+   - On the Service Accounts page, find your newly created service account.
+   - Click on the service account and go to the **Keys** tab.
+   - Click **Add Key** > **Create New Key**.
+   - Select **JSON** and click **Create**.
+   - A JSON file with your credentials will be downloaded.
+
+5. **Set Up Environment Variable:**
+
+   - Store the downloaded JSON file securely.
+   - Set the `SERVICE_ACCOUNT_KEY_FILE` environment variable to the path of the JSON file.
+   
+   ```bash
+   export SERVICE_ACCOUNT_KEY_FILE=/path/to/your/service-account-file.json
+   ```
+
+
 ### Setup
 
 1. **⬆️ Upload a File**
@@ -152,3 +190,4 @@ uploadAndDownloadExample();
 ## 📜 License
 
 MIT
+

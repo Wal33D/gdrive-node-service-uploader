@@ -2,7 +2,7 @@ import { deleteFileFromGoogleDrive } from '../fileDelete';
 
 const fileId = '1HRmETDPMHlHtHpIZCMJP0JjB9AeX_PgU';
 const fileUrl = 'https://drive.google.com/file/d/1HRmETDPMHlHtHpIZCMJP0JjB9AeX_PgU/view?usp=drivesdk';
-const fileName = 'ManicMinersV1.0.zip';
+const fileName = 'manic-miners-latest.zip';
 
 const deleteFileExample = async () => {
    try {

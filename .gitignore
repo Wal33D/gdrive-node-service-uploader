@@ -30,3 +30,4 @@ yarn.lock
 *.zip
 
 .env
+example_archive.zip

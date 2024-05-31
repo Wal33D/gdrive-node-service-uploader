@@ -11,14 +11,16 @@ export const getAuthClient = async (serviceAccountKeyFile?: string): Promise<Aut
    }
 
    const keyFile = serviceAccountKeyFile || process.env.SERVICE_ACCOUNT_KEY_FILE;
+   const serviceAccountJson = process.env.SERVICE_ACCOUNT_JSON;
 
-   if (!keyFile) {
-      throw new Error('Service account key file path is not defined.');
+   if (!keyFile && !serviceAccountJson) {
+      throw new Error('Service account key file path or SERVICE_ACCOUNT_JSON is not defined.');
    }
 
    console.log('Authenticating with Google Drive...');
+
    const auth = new google.auth.GoogleAuth({
-      keyFile: keyFile,
+      ...(keyFile ? { keyFile: keyFile } : { credentials: JSON.parse(serviceAccountJson!) }),
       scopes: ['https://www.googleapis.com/auth/drive.file']
    });
 

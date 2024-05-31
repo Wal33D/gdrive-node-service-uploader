@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import { UploadFileParams } from './types';
 import { getAuthClient, getFileDownloadUrl, makeFilePublic } from './utils';
 
-export const uploadFileToGoogleDrive = async ({ filePath, onProgress }: UploadFileParams) => {
+export const uploadFileToGoogleDrive = async ({ filePath, onProgress, description }: UploadFileParams) => {
    if (!filePath) {
       throw new Error('No file path provided for the file to upload.');
    }
@@ -25,7 +25,10 @@ export const uploadFileToGoogleDrive = async ({ filePath, onProgress }: UploadFi
       });
 
       const uploadFile = async (fileId?: string) => {
-         const fileMetadata = { name: fileName };
+         const fileMetadata = {
+            name: fileName,
+            description: description || 'No description provided.'
+         };
          const fileSize = (await fs.stat(filePath)).size;
          const media = {
             mimeType: 'application/zip',

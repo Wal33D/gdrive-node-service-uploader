@@ -1,6 +1,7 @@
 export interface UploadFileParams {
    filePath: string;
    onProgress?: (progress: number) => void;
+   description?: string;
 }
 
 export interface DownloadFileParams {
@@ -22,6 +23,7 @@ export interface FileExistsResult {
    exists: boolean;
    fileId?: string;
    fileName?: string;
+   fileSize?: number;
    modifiedTime?: string;
    fileUrl?: string;
    message: string;

@@ -1,7 +1,7 @@
 import { fileExists } from '../fileExists';
 
-const fileId = '17YGQ4jNm8WiJ4NmHmkX3BOfxtSDhEOtF';
-const fileUrl = 'https://drive.google.com/file/d/1HRmETDPMHlHtHpIZCMJP0JjB9AeX_PgU/view?usp=drivesdk';
+const fileId = '1cdhMpL2dLfsHndmf4V9FgDn01QK_v_05';
+const fileUrl = 'https://drive.google.com/file/d/1cdhMpL2dLfsHndmf4V9FgDn01QK_v_05/view?usp=drivesdk';
 const fileName = 'example_archive.zip';
 
 const checkFileExample = async () => {

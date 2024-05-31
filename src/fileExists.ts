@@ -22,7 +22,7 @@ export const fileExists = async ({ fileId, fileUrl, fileName }: FileParams): Pro
       if (validatedFileId) {
          const res = await drive.files.get({
             fileId: validatedFileId,
-            fields: 'id, name, modifiedTime, webViewLink'
+            fields: 'id, name, modifiedTime, webViewLink, size'
          });
 
          if (res.data) {
@@ -32,6 +32,7 @@ export const fileExists = async ({ fileId, fileUrl, fileName }: FileParams): Pro
                fileName: res.data.name,
                modifiedTime: res.data.modifiedTime,
                fileUrl: res.data.webViewLink,
+               fileSize: res.data.size ? Number(res.data.size) : undefined,
                message: 'File exists on Google Drive.'
             };
          } else {
@@ -40,7 +41,7 @@ export const fileExists = async ({ fileId, fileUrl, fileName }: FileParams): Pro
       } else if (fileName) {
          const res = await drive.files.list({
             q: `name='${fileName}' and trashed=false`,
-            fields: 'files(id, name, modifiedTime, webViewLink)'
+            fields: 'files(id, name, modifiedTime, webViewLink, size)'
          });
 
          if (res.data.files && res.data.files.length > 0) {
@@ -51,6 +52,7 @@ export const fileExists = async ({ fileId, fileUrl, fileName }: FileParams): Pro
                fileName: file.name,
                modifiedTime: file.modifiedTime,
                fileUrl: file.webViewLink,
+               fileSize: file.size ? Number(file.size) : undefined,
                message: 'File exists on Google Drive.'
             };
          } else {

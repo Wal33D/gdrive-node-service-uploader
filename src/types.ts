@@ -8,6 +8,7 @@ export interface DownloadFileParams {
    fileId?: string;
    fileName?: string;
    fileUrl?: string;
+   directDownloadLink?: boolean;
    downloadPath?: string;
    onProgress?: (progress: number) => void;
 }
@@ -17,6 +18,7 @@ export interface FileParams {
    fileUrl?: string;
    fileName?: string;
    newName?: string;
+   directDownloadLink?: boolean; // New parameter
 }
 
 export interface FileExistsResult {
@@ -26,6 +28,7 @@ export interface FileExistsResult {
    fileSize?: number;
    modifiedTime?: string;
    fileUrl?: string;
+   directDownloadLink?: string; // New field
    message: string;
 }
 

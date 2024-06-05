@@ -1,9 +1,13 @@
 import { google } from 'googleapis';
-import { getAuthClient } from './utils';
+import { getAuthClient, validateFileIdOrUrl } from './utils';
 import { DownloadFileParams } from './types';
 import { Response } from 'express';
 
 export const streamFileFromGoogleDrive = async ({ fileId, fileUrl, fileName }: DownloadFileParams, res: Response, onProgress?: (progress: number) => void) => {
+   if (!fileId && !fileUrl && !fileName) {
+      throw new Error('File ID, file URL, or file name must be provided.');
+   }
+
    const auth = await getAuthClient();
    const drive = google.drive({ version: 'v3', auth });
 
@@ -12,8 +16,7 @@ export const streamFileFromGoogleDrive = async ({ fileId, fileUrl, fileName }: D
    if (fileId) {
       validatedFileId = fileId;
    } else if (fileUrl) {
-      const directDownloadLink = convertToDirectDownloadLink(fileUrl);
-      validatedFileId = directDownloadLink.match(/id=(.*)/)?.[1];
+      validatedFileId = validateFileIdOrUrl({ fileUrl });
    } else if (fileName) {
       const driveResponse = await drive.files.list({
          q: `name='${fileName}' and trashed=false`,
@@ -61,12 +64,3 @@ export const streamFileFromGoogleDrive = async ({ fileId, fileUrl, fileName }: D
       throw new Error(`Error during file download: ${(error as Error).message}`);
    }
 };
-
-// Utility function to convert to direct download link
-function convertToDirectDownloadLink(driveLink: string): string {
-   const fileId = driveLink.match(/\/d\/(.*?)\//)?.[1];
-   if (!fileId) {
-      throw new Error('Invalid Google Drive link');
-   }
-   return `https://drive.google.com/uc?export=download&id=${fileId}`;
-}

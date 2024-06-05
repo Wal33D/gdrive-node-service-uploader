@@ -18,7 +18,6 @@ export const uploadFileToGoogleDrive = async ({ filePath, onProgress, descriptio
    let downloadUrl = '';
 
    try {
-      console.log(`Checking if file '${fileName}' already exists on Google Drive...`);
       const res = await drive.files.list({
          q: `name='${fileName}' and trashed=false`,
          fields: 'files(id, name)'
@@ -37,10 +36,8 @@ export const uploadFileToGoogleDrive = async ({ filePath, onProgress, descriptio
 
          let request;
          if (fileId) {
-            console.log(`File '${fileName}' exists. Updating file with ID: ${fileId}`);
             request = drive.files.update({ fileId, requestBody: fileMetadata, media });
          } else {
-            console.log(`File '${fileName}' does not exist. Uploading new file.`);
             request = drive.files.create({ requestBody: fileMetadata, media, fields: 'id' });
          }
 

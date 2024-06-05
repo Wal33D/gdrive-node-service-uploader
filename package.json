@@ -1,45 +1,50 @@
 {
-   "name": "gdrive-node-uploader",
-   "version": "0.9.5",
-   "description": "A Node.js library to upload, download, and manage files on Google Drive using a service account.",
-   "main": "dist/index.js",
-   "types": "dist/index.d.ts",
-   "scripts": {
-      "build": "tsc",
-      "start": "tsc && ts-node dist/index.js",
-      "exampleUpload": "tsc && ts-node dist/examples/uploadExample.js",
-      "exampleFind": "tsc && ts-node dist/examples/checkFileExistsExample.js",
-      "exampleDelete": "tsc && ts-node dist/examples/deleteFileExample.js",
-      "exampleDownload": "tsc && ts-node dist/examples/downloadFileExample.js",
-      "exampleRename": "tsc && ts-node dist/examples/renameFileExample.js"
-   },
-   "author": "Wal33D",
-   "license": "ISC",
-   "dependencies": {
-      "dotenv": "^16.4.5",
-      "googleapis": "^137.1.0",
-      "progress": "^2.0.3"
-   },
-   "devDependencies": {
-      "@types/progress": "^2.0.7"
-   },
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/Wal33D/gdrive-node-service-uploader"
-   },
-   "bugs": {
-      "url": "https://github.com/Wal33D/gdrive-node-service-uploader/issues"
-   },
-   "homepage": "https://github.com/Wal33D/gdrive-node-service-uploader#readme",
-   "keywords": [
-      "google-drive",
-      "service-account",
-      "nodejs",
-      "upload",
-      "download",
-      "file-management"
-   ],
-   "publishConfig": {
-      "registry": "https://registry.npmjs.org/"
-   }
+  "name": "gdrive-node-uploader",
+  "version": "1.0.9",
+  "description": "A Node.js library to upload, download, and manage files on Google Drive using a service account.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && ts-node dist/index.js",
+    "test:upload": "tsc && ts-node dist/examples/uploadExample.js",
+    "test:find": "tsc && ts-node dist/examples/checkFileExistsExample.js",
+    "test:delete": "tsc && ts-node dist/examples/deleteFileExample.js",
+    "test:download": "tsc && ts-node dist/examples/downloadFileExample.js",
+    "test:rename": "tsc && ts-node dist/examples/renameFileExample.js",
+    "test:folderUpload": "tsc && ts-node dist/examples/uploadFolderExample.js",
+    "test:folderDownload": "tsc && ts-node dist/examples/downloadFolderExample.js",
+    "test:shareDrive": "tsc && ts-node dist/examples/shareGDriveDirectory.js",
+    "test:wipeDrive": "tsc && ts-node dist/examples/wipeGDriveExample.js",
+    "bump-version": "node bump-version.js && npm run build && npm publish"
+  },
+  "author": "Wal33D",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "googleapis": "^137.1.0",
+    "progress": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/progress": "^2.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wal33D/gdrive-node-service-uploader"
+  },
+  "bugs": {
+    "url": "https://github.com/Wal33D/gdrive-node-service-uploader/issues"
+  },
+  "homepage": "https://github.com/Wal33D/gdrive-node-service-uploader#readme",
+  "keywords": [
+    "google-drive",
+    "service-account",
+    "nodejs",
+    "upload",
+    "download",
+    "file-management"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }

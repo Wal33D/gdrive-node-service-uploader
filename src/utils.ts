@@ -1,4 +1,6 @@
+import path from 'path';
 import dotenv from 'dotenv';
+import { FileStat } from './types';
 import { google, Auth } from 'googleapis';
 
 dotenv.config();
@@ -17,15 +19,12 @@ export const getAuthClient = async (serviceAccountKeyFile?: string): Promise<Aut
       throw new Error('Service account key file path or SERVICE_ACCOUNT_JSON is not defined.');
    }
 
-   console.log('Authenticating with Google Drive...');
-
    const auth = new google.auth.GoogleAuth({
       ...(keyFile ? { keyFile: keyFile } : { credentials: JSON.parse(serviceAccountJson!) }),
-      scopes: ['https://www.googleapis.com/auth/drive.file']
+      scopes: ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive']
    });
 
    authClient = (await auth.getClient()) as Auth.OAuth2Client;
-   console.log('Authentication successful.');
    return authClient;
 };
 
@@ -45,7 +44,6 @@ export const makeFilePublic = async ({ drive, fileId }: { drive: any; fileId: st
          type: 'anyone'
       }
    });
-   console.log(`File with ID: ${fileId} is now public.`);
 };
 
 export const extractFileIdFromUrl = ({ fileUrl }: { fileUrl: string }): string => {
@@ -64,4 +62,65 @@ export const validateFileIdOrUrl = ({ fileId, fileUrl }: { fileId?: string; file
       return extractFileIdFromUrl({ fileUrl });
    }
    return fileId!;
+};
+export const makeFolderPublic = async ({ drive, folderId }: { drive: any; folderId: string }) => {
+   await drive.permissions.create({
+      fileId: folderId,
+      requestBody: {
+         role: 'reader',
+         type: 'anyone'
+      }
+   });
+};
+
+export const formatDate = (dateString: string) => {
+   if (!dateString) return '';
+   const date = new Date(dateString);
+   return date.toLocaleString('en-US', { timeZone: 'UTC' });
+};
+// Utility function to convert to direct download link
+export function convertTodirectDownloadUrl(driveLink: string): string {
+   const fileId = driveLink.match(/\/d\/(.*?)\//)?.[1];
+   if (!fileId) {
+      throw new Error('Invalid Google Drive link');
+   }
+   return `https://drive.google.com/uc?export=download&id=${fileId}`;
+}
+
+export const getFileStats = async (drive: any, folderId: string, destinationPath: string): Promise<FileStat[]> => {
+   const files = await drive.files
+      .list({
+         q: `'${folderId}' in parents and trashed=false`,
+         fields: 'files(id, name, mimeType, size, parents)'
+      })
+      .then((res: { data: { files: any } }) => res.data.files || []);
+
+   const fileStats: FileStat[] = [];
+   for (const file of files) {
+      const filePath = path.join(destinationPath, file.name);
+      if (file.mimeType === 'application/vnd.google-apps.folder') {
+         const subFolderStats = await getFileStats(drive, file.id, filePath);
+         fileStats.push(...subFolderStats);
+      } else {
+         const downloadUrl = await getFileDownloadUrl({ drive, fileId: file.id });
+         const directDownloadUrl = convertTodirectDownloadUrl(downloadUrl);
+         fileStats.push({
+            fileName: file.name,
+            filePath: filePath,
+            fileSize: parseInt(file.size || '0'),
+            fileUrl: downloadUrl,
+            fileType: path.extname(filePath).substring(1),
+            downloadUrl: directDownloadUrl
+         });
+      }
+   }
+   return fileStats;
+};
+
+export const findExistingFileId = async (drive: any, name: string, parentFolderId: string) => {
+   const res = await drive.files.list({
+      q: `name='${name}' and '${parentFolderId}' in parents and trashed=false`,
+      fields: 'files(id, name, parents, size, createdTime, modifiedTime, description)'
+   });
+   return res.data.files.length > 0 ? res.data.files[0].id : null;
 };

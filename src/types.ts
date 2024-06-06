@@ -4,6 +4,13 @@ export interface UploadFileParams {
    description?: string;
 }
 
+export interface UploadFolderStreamParams {
+   files: { buffer: Buffer; name: string }[];
+   folderName: string;
+   parentFolderId?: string;
+   excludeExtensions?: string[];
+}
+
 export interface DownloadFileParams {
    fileId?: string;
    fileName?: string;
@@ -58,11 +65,11 @@ export interface DownloadFolderParams {
 
 export interface FileStat {
    fileName: string;
-   filePath: string;
+   filePath?: string;
    fileSize: number;
    fileUrl: string;
    fileType: string;
-   downloadUrl: string;
+   downloadUrl?: string;
 }
 
 export interface FolderResult {

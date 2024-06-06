@@ -7,6 +7,18 @@ export { renameFileInGoogleDrive } from './fileRename';
 export { uploadFileToGoogleDrive } from './fileUpload';
 export { deleteFileFromGoogleDrive } from './fileDelete';
 export { downloadFileFromGoogleDrive } from './fileDownload';
-export { FolderResult, FileStat, DownloadFolderParams, UploadFolderParams } from './types';
-export { UploadFileParams, DownloadFileParams, FileParams, RenameFileResult, FileExistsResult } from './types';
 export { deleteAllFilesFromDrive } from './deleteAllFilesFromDrive';
+export { folderStreamUpload } from './folderStreamUpload';
+export { fileStreamUpload } from './fileStreamUpload';
+export {
+   FolderResult,
+   FileStat,
+   DownloadFolderParams,
+   UploadFolderParams,
+   UploadFileParams,
+   DownloadFileParams,
+   FileParams,
+   RenameFileResult,
+   FileExistsResult,
+   UploadFolderStreamParams
+} from './types';
